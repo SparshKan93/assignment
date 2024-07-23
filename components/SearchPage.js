@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, SafeAreaView, Pressable } from 'react-native';
 
 const SearchPage = ({ route, navigation }) => {
   const { results, search } = route.params;
 
   const truncateSummary = (summary) => {
+    if (!summary) return ""; 
     const words = summary.split(' ');
     if (words.length > 20) {
       return words.slice(0, 20).join(' ') + '...';
@@ -24,19 +25,29 @@ const SearchPage = ({ route, navigation }) => {
           </Pressable>
         </View>
       </View>
-      <ScrollView style={styles.resultsContainer} showsVerticalScrollIndicator={false}>
-        {results.map(result => (
-          <View key={result.show.id} style={styles.card}>
-            <Image style={styles.image} source={{ uri: result.show.image?.medium }} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{result.show.name}</Text>
-              <Text style={styles.summary}>
-                {truncateSummary(result.show.summary.replace(/<\/?[^>]+(>|$)/g, ""))}
-              </Text>
+      {results.length === 0 ? (
+        <View style={styles.noResultsContainer}>
+          <Text style={styles.noResultsText}>No Result Found</Text>
+        </View>
+      ) : (
+        <ScrollView style={styles.resultsContainer} showsVerticalScrollIndicator={false}>
+          {results.map(result => (
+            <View key={result.show.id} style={styles.card}>
+              <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={{ uri: result.show.image?.medium || "https://static.tvmaze.com/uploads/images/medium_portrait/248/621817.jpg" }}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{result.show.name}</Text>
+                <Text style={styles.summary}>
+                  {truncateSummary(result.show.summary?.replace(/<\/?[^>]+(>|$)/g, ""))}
+                </Text>
+              </View>
             </View>
-          </View>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -47,9 +58,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   resultsContainer: {
-    // top: "5%",
+    top: "2%",
     width: "90%",
-    alignSelf:"center"
+    alignSelf: "center",
   },
   card: {
     flexDirection: 'row',
@@ -87,12 +98,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 12,
-    backgroundColor: "#000" // Added to remove the white box
+    backgroundColor: "#000",
   },
   miarrowUpLayout: {
     height: "100%",
     width: "100%",
-    tintColor: "white"
+    tintColor: "white",
   },
   frame: {
     flex: 1,
@@ -107,11 +118,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    marginBottom: "5%"
+    marginBottom: "5%",
   },
   miarrowUp: {
     height: 24,
-    width: 24
+    width: 24,
+  },
+  noResultsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noResultsText: {
+    color: 'white',
+    fontSize: 18,
   },
 });
 

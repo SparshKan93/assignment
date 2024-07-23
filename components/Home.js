@@ -36,10 +36,10 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
-      <View style={{ marginBottom: 25, flexDirection: "row", alignItems: 'center', justifyContent:"space-between"}}>
-        <Image style={{ tintColor: 'rgb(229, 9, 20)'}} resizeMode="cover" source={require('@/assets/images/image 134.png')}/>
+      <View style={styles.header}>
+        <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/image 134.png')} />
         <Pressable onPress={() => navigation.navigate('Search')}>
-          <Image style={{ tintColor: 'white', marginRight: "1%"}} resizeMode="cover" source={require('@/assets/images/majesticons_search-line.png')}/>
+          <Image style={styles.searchIcon} resizeMode="cover" source={require('@/assets/images/majesticons_search-line.png')} />
         </Pressable>
       </View>
       <Text style={styles.heading}>Trending</Text>
@@ -50,10 +50,10 @@ const Home = () => {
       </ScrollView>
       <View style={styles.footer}>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.buttonText}>Home</Text>
+          <Text style={[styles.buttonText, { color: 'white' }]}>Home</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Search')}>
-          <Text style={styles.buttonText}>Search</Text>
+          <Text style={[styles.buttonText, { color: 'white' }]}>Search</Text>
         </Pressable>
       </View>
     </View>
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     fontWeight: 'bold',
-    color:"white",
-    marginVertical:15
+    color: "white",
+    marginVertical: 15
   },
   footer: {
     position: 'absolute',
@@ -94,12 +94,24 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
   },
+  header: {
+    marginBottom: 25,
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: "space-between"
+  },
+  logo: {
+    tintColor: 'rgb(229, 9, 20)',
+  },
+  searchIcon: {
+    tintColor: 'white',
+    marginRight: "1%",
+  }
 });
 
 export default Home;

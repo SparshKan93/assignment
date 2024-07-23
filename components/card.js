@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 5,
     width: 180,
+    height:"60%"
   },
   frameChild: {
     width: 190,

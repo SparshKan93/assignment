@@ -38,13 +38,22 @@ const Search = () => {
             value={search}
             keyboardType="default"
             onSubmitEditing={handleSearchSubmit}
+            placeholderTextColor='white' // Set placeholder text color to white
           />
           {search && (
             <Pressable style={styles.frameChild} onPress={() => setSearch("")}>
-              <Image style={{tintColor: "white"}} resizeMode="cover" source={require('@/assets/images/basil_cross-outline.png')} />
+              <Image style={{ tintColor: "white" }} resizeMode="cover" source={require('@/assets/images/basil_cross-outline.png')} />
             </Pressable>
           )}
         </View>
+      </View>
+      <View style={styles.footer}>
+        <Pressable style={[styles.button, styles.homeButton]} onPress={() => navigation.navigate('Home')}>
+          <Text style={[styles.buttonText, { color: 'white' }]}>Home</Text>
+        </Pressable>
+        <Pressable style={[styles.button, styles.searchButton]} onPress={() => navigation.navigate('Search')}>
+          <Text style={[styles.buttonText, { color: 'white' }]}>Search</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 12,
-    backgroundColor: "#000" // Added to remove the white box
+    backgroundColor: "#000" 
   },
   miarrowUpLayout: {
     height: "100%",
@@ -74,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "left",
     width: "80%",
-    paddingEnd: "5%"
+    paddingEnd: "5%",
   },
   frameChild: {
     paddingHorizontal: 2,
@@ -86,7 +95,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   miarrowUp: {
-    // top: "3%",
     height: 24,
     width: 24
   },
@@ -94,7 +102,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     flex: 1,
     width: "100%"
-  }
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#333',
+    paddingVertical: 10,
+  },
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    backgroundColor: '#333',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
 
 export default Search;
